@@ -12,18 +12,30 @@ window.onload = function () {
         if(e.keyCode == 37){
             console.log("left");
             selectedX--;
+            if(selectedX<0){
+                selectedX++;
+            }
             redrawGrid();
         }else if(e.keyCode == 39){
             console.log("right");
             selectedX++;
+            if(selectedX>SIZE-1){
+                selectedX--;
+            }
             redrawGrid();
         }else if(e.keyCode == 38){
             console.log("up");
             selectedy--;
+            if(selectedy<0){
+                selectedy++;
+            }
             redrawGrid();
         }else if(e.keyCode == 40){
             console.log("down");
             selectedy++;
+            if(selectedy>SIZE-1){
+                selectedy--;
+            }
             redrawGrid();
         }
     }
