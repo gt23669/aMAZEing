@@ -19,36 +19,47 @@ window.onload = function () {
             myGrid[y] = [];
             isVisited[y] = [];
             for (var x = 0; x < SIZEx; x++) {
-                myGrid[y][x] = [0,0,0,0]
+                myGrid[y][x] = false;
                 isVisited[y][x] = false;
             }
         }
         var randStart = [Math.floor(Math.random()*SIZEy), Math.floor(Math.random()*SIZEx)];
         var randStart0 = randStart[0];
         var randStart1 = randStart[1];
+        randStart = [randStart0,randStart1];
         var path = [randStart];
+        myGrid[randStart0][randStart1] = true;
         isVisited[randStart0][randStart1] = true;
         var visited = 1;
 
+        var runCount = 0;
         while(visited<totalCells){
-            var potential = [[randStart0-1, randStart1,0,2],
-                            [randStart0, randStart1+1,1,3],
-                             [randStart0+1,randStart1,2,0],
-                             [randStart0, randStart1-1,3,1]];
+            var potential = [[randStart0-1, randStart1],
+                            [randStart0, randStart1+1],
+                             [randStart0+1,randStart1],
+                             [randStart0, randStart1-1]];
 
             var nextCell = [];
+            runCount++;
+            if(runCount>20){
+                console.log("Hit break statment")
+                break;
+            }
 
             for(var i = 0; i <4;i++){
                 var pos1 = potential[i][0];
                 var pos2 = potential[i][1];
-                var VisitedPOS = isVisited[pos1][pos2];
-                console.log("VisitedPOS = "+VisitedPOS);
-                if(potential[i][0]>-1 && potential[i][0]<SIZEy && potential[i][1]>-1 && potential[i][1]<SIZEx){
-                    if(isVisited[pos1][pos2]==false){
-
-                        nextCell.push(potential[i]);
-                    } 
-                    
+                if(pos1<=3&&pos1>=0&&pos2<=3&&pos2>=0){
+                    var VisitedPOS = isVisited[pos1][pos2];
+                    console.log("VisitedPOS = "+VisitedPOS);
+                    console.log("Cell = "+pos1+","+pos2);
+                    if(pos1>-1 && pos1<SIZEy && pos2>-1 && pos2<SIZEx){
+                        if(isVisited[pos1][pos2]==false){
+                            
+                            nextCell.push(potential[i]);
+                        } 
+                        
+                    }
 
                 
                 }
