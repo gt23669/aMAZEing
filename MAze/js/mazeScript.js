@@ -14,16 +14,21 @@ window.onload = function () {
 
     //     //  }
 
-    const rows = 10;
-    const cols = 10;
+    const rows = 9;
+    const cols = 9;
     const CS = 10; //cellsize
+    var gridArr = [];
+    var cCell = {};
     var start = {};
     var end = {};
-    var gridArr = [];
+    var visitedCells = [];
+    var visited = 0;
 
-    function Coordinate(x, y) {
+    function Coordinate(x, y, direction, visited) {
         this.x = x;
         this.y = y;
+        this.direction = direction;
+        this.visited = visited;
     }
 
     function genMazeArr() {
@@ -36,31 +41,158 @@ window.onload = function () {
                 }
 
             }
-            console.log(gridArr[i]);
+            // console.log(gridArr[i]);
         }
     }
     genMazeArr();
 
     function selStart() {
-        var startX;
+        var startx;
         var starty;
-        starty = Math.floor((Math.random()*(rows - 2)) + 1);
-        startX = Math.floor((Math.random()*(cols - 2)) + 1);
+        starty = Math.floor((Math.random() * (rows - 2)) + 1);
+        startx = Math.floor((Math.random() * (cols - 2)) + 1);
         if (starty % 2 == 0) {
             starty = starty - 1;
         }
-        if (startX % 2 == 0) {
-            startX = startX - 1;
+        if (startx % 2 == 0) {
+            startx = startx - 1;
         }
-        console.log(startX);
-        console.log(starty);
-        start = new Coordinate(startX, starty);
-        gridArr[start.x][start.y] = 2;
+        cCell = new Coordinate(startx, starty, "", true);
+        start = new Coordinate(startx, starty, "", true);
+        console.log("x: " + cCell.x);
+        console.log("y: " + cCell.y);
+        gridArr[cCell.x][cCell.y] = 2;
+        visitedCells.push([cCell.x, cCell.y]);
+        visited++;
+        console.log("starting cell at: " + cCell.x + "," + cCell.y);
     }
     selStart();
     for (var i = 0; i < cols; i++) {
         console.log(gridArr[i]);
     }
+
+    function path() {
+
+        while (visited<20) {
+
+            var posPath = [];
+
+            if (cCell.x - 2 >= 0 && gridArr[cCell.x - 2][cCell.y] == 0) { //up
+                var good = false;
+                for (var i = 0; i < visitedCells.length; i++) {
+                    if (cCell.x - 2 == visitedCells[i][0] && cCell.y == visitedCells[i][1]) {
+                        good = false;
+                        break;
+                    } else {
+                        good = true;
+                    }
+                }
+                    if (good) {
+                        posPath.push(new Coordinate(cCell.x - 2, cCell.y, "up", true));//up
+                       
+
+                    }
+            }
+
+            if (cCell.y + 2 < rows && gridArr[cCell.x][cCell.y + 2] == 0) { //right
+                var good = false;
+                for (var i = 0; i < visitedCells.length; i++) {
+                    if (cCell.x == visitedCells[i][0] && cCell.y + 2 == visitedCells[i][1]) {
+                        good = false;
+                        break;
+                    } else {
+                        good = true;
+                    }
+                }
+                    if (good) {
+                        posPath.push(new Coordinate(cCell.x, cCell.y + 2, "right", true));//right
+                        
+
+                    }
+            }
+
+            if (cCell.x + 2 < cols && gridArr[cCell.x + 2][cCell.y] == 0) { //down
+                var good = false;
+                for (var i = 0; i < visitedCells.length; i++) {
+                    if (cCell.x + 2 == visitedCells[i][0] && cCell.y == visitedCells[i][1]) {
+                        good = false;
+                        break;
+                    } else {
+                        good = true;
+                    }
+                }
+                    if (good) {
+                        posPath.push(new Coordinate(cCell.x + 2, cCell.y, "down", true));//down
+                        
+
+                    }
+            }
+
+            if (cCell.y - 2 >= 0 && gridArr[cCell.x][cCell.y - 2] == 0) { //left
+                var good = false;
+                for (var i = 0; i < visitedCells.length; i++) {
+                    if (cCell.x == visitedCells[i][0] && cCell.y - 2 == visitedCells[i][1]) {
+                        good = false;
+                        break;
+                    } else {
+                        good = true;
+                    }
+                }
+                    if (good) {
+                        posPath.push(new Coordinate(cCell.x, cCell.y - 2, "left", true));//left
+                        
+
+                    }
+            }
+
+            if(posPath.length==0){
+                
+            }
+
+            var index = Math.floor(Math.random() * posPath.length);
+            console.log("index chosen is: " + index);
+
+            gridArr[posPath[index].x][posPath[index].y] = 0;
+            visitedCells.push([posPath[index].x, posPath[index].y]);
+            console.log("visitedX: " + [posPath[index].x]);
+            console.log("visitedY: " + [posPath[index].y]);
+            visited++;
+            cCell.x = posPath[index].x;
+            cCell.y = posPath[index].y;
+
+
+            switch (posPath[index].direction) {
+                case "up":
+                    gridArr[posPath[index].x + 1][posPath[index].y] = 0;
+                    console.log("up")
+                    break;
+                case "down":
+                    gridArr[posPath[index].x - 1][posPath[index].y] = 0;
+                    console.log("down")
+                    break;
+                case "left":
+                    gridArr[posPath[index].x][posPath[index].y + 1] = 0;
+                    console.log("left")
+                    break;
+                case "right":
+                    gridArr[posPath[index].x][posPath[index].y - 1] = 0;
+                    console.log("right")
+                    break;
+            }
+
+
+
+            for (var i = 0; i < cols; i++) {
+                console.log(gridArr[i]);
+            }
+
+        }
+
+    }
+
+    path();
+
+
     //     // var visitedCells = [];
     //     // var numGridCells = rows * cols;
 
