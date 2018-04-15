@@ -78,89 +78,100 @@ window.onload = function () {
 
     function path() {
 
-        while (!(start.x != trackedPath[0][0] && start.y != trackedPath[0][1])) {
-            possPath();
+        do{
 
-            console.log("posspath length: " + posPath.length);
-            if (posPath.length == 0) {
-                console.log("if hit");
-                // for(var i = 0;i<trackPath.length;i++){
-                //     console.log("tracked path: "+trackPath[i]);
-
-                // }
-                if(trackedPath.length>1){
-
-                    trackedPath.pop();
-                }
-                var index = (trackedPath.length) - 1;
-                // posPath.push(trackedPath[index]);
-                posPath.push(new Coordinate(trackedPath[index][0], trackedPath[index][1], "", true));
-                // posPath.push(trackedPath[index][0]);
-                // posPath[0][0] = trackedPath[index][0];
-                // posPath[0][1] = trackedPath[index][1];
-                console.log(posPath[0].x);
-                console.log(posPath[0].y);
-                console.log(trackedPath[index][0]);
-                console.log(trackedPath[index][1]);
-            }
-
-            var index = Math.floor(Math.random() * posPath.length);
-            console.log("index chosen is: " + index);
-
-            gridArr[posPath[index].x][posPath[index].y] = 0;
-            var there = false;
-            for (var i = 0; i < visitedCells.length; i++) {
-                if (posPath[index].x == visitedCells[i][0] && posPath[index].y == visitedCells[i][1]) {
-                    there = false;
-                    break;
-                } else {
-                    there = true;
-                }
-            }
-            if (there) {
-                visitedCells.push([posPath[index].x, posPath[index].y]);
-                trackedPath.push([posPath[index].x, posPath[index].y]);
-                visited++;
-
-
-            }
-            console.log("visitedX: " + [posPath[index].x]);
-            console.log("visitedY: " + [posPath[index].y]);
-            cCell.x = posPath[index].x;
-            cCell.y = posPath[index].y;
-
-
-            switch (posPath[index].direction) {
-                case "up":
+            // while (true) {
+                console.log("Start: "+start.x,start.y);
+                console.log(trackedPath[0]);
+                possPath();
+                
+                console.log("posspath length: " + posPath.length);
+                if (posPath.length == 0) {
+                    console.log("if hit");
+                    // for(var i = 0;i<trackPath.length;i++){
+                        //     console.log("tracked path: "+trackPath[i]);
+                        
+                        // }
+                        if(trackedPath.length>1){
+                            
+                            trackedPath.pop();
+                        }
+                        var index = (trackedPath.length) - 1;
+                        // posPath.push(trackedPath[index]);
+                        posPath.push(new Coordinate(trackedPath[index][0], trackedPath[index][1], "", true));
+                        // posPath.push(trackedPath[index][0]);
+                        // posPath[0][0] = trackedPath[index][0];
+                        // posPath[0][1] = trackedPath[index][1];
+                        console.log(posPath[0].x);
+                        console.log(posPath[0].y);
+                        console.log(trackedPath[index][0]);
+                        console.log(trackedPath[index][1]);
+                    }
+                    
+                    var index = Math.floor(Math.random() * posPath.length);
+                    console.log("index chosen is: " + index);
+                    
+                    gridArr[posPath[index].x][posPath[index].y] = 0;
+                    var there = false;
+                    for (var i = 0; i < visitedCells.length; i++) {
+                        if (posPath[index].x == visitedCells[i][0] && posPath[index].y == visitedCells[i][1]) {
+                            there = false;
+                            break;
+                        } else {
+                            there = true;
+                        }
+                    }
+                    if (there) {
+                        visitedCells.push([posPath[index].x, posPath[index].y]);
+                        trackedPath.push([posPath[index].x, posPath[index].y]);
+                        visited++;
+                        
+                        
+                    }
+                    console.log("visitedX: " + [posPath[index].x]);
+                    console.log("visitedY: " + [posPath[index].y]);
+                    cCell.x = posPath[index].x;
+                    cCell.y = posPath[index].y;
+                    
+                    
+                    switch (posPath[index].direction) {
+                        case "up":
                     gridArr[posPath[index].x + 1][posPath[index].y] = 0;
                     console.log("up")
                     break;
-                case "down":
+                    case "down":
                     gridArr[posPath[index].x - 1][posPath[index].y] = 0;
                     console.log("down")
                     break;
-                case "left":
+                    case "left":
                     gridArr[posPath[index].x][posPath[index].y + 1] = 0;
                     console.log("left")
                     break;
-                case "right":
+                    case "right":
                     gridArr[posPath[index].x][posPath[index].y - 1] = 0;
                     console.log("right")
                     break;
+                }
+                
+                
+                
+                for (var i = 0; i < cols; i++) {
+                    console.log(gridArr[i]);
+                }
+                
+            // }
+            if(trackedPath[(trackedPath.length)-1][0]==start.x&&trackedPath[(trackedPath.length)-1][1]==start.y){
+                console.log("true");
+                break;
+            }else{
+                console.log("false");
             }
-
-
-
-            for (var i = 0; i < cols; i++) {
-                console.log(gridArr[i]);
-            }
-
+        }while(true);
+            console.log("exit while loop");
+            
         }
-        console.log("exit while loop");
-
-    }
-
-    path();
+        
+        path();
 
     function possPath() {
         posPath = [];
