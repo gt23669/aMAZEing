@@ -18,7 +18,7 @@ window.onload = function () {
 
     const rows = 9;
     const cols = 9;
-    const CS = 10; //cellsize
+    const CS = 7; //cellsize
     var gridArr = [];
     var cCell = {};
     var start = {};
@@ -45,7 +45,7 @@ window.onload = function () {
                 }
 
             }
-            // console.log(gridArr[i]);
+
         }
     }
     genMazeArr();
@@ -80,7 +80,7 @@ window.onload = function () {
 
         do{
 
-            // while (true) {
+
                 console.log("Start: "+start.x,start.y);
                 console.log(trackedPath[0]);
                 possPath();
@@ -88,10 +88,7 @@ window.onload = function () {
                 console.log("posspath length: " + posPath.length);
                 if (posPath.length == 0) {
                     console.log("if hit");
-                    // for(var i = 0;i<trackPath.length;i++){
-                        //     console.log("tracked path: "+trackPath[i]);
-                        
-                        // }
+                   
                         if(trackedPath.length>1){
                             
                             trackedPath.pop();
@@ -99,9 +96,6 @@ window.onload = function () {
                         var index = (trackedPath.length) - 1;
                         // posPath.push(trackedPath[index]);
                         posPath.push(new Coordinate(trackedPath[index][0], trackedPath[index][1], "", true));
-                        // posPath.push(trackedPath[index][0]);
-                        // posPath[0][0] = trackedPath[index][0];
-                        // posPath[0][1] = trackedPath[index][1];
                         console.log(posPath[0].x);
                         console.log(posPath[0].y);
                         console.log(trackedPath[index][0]);
@@ -244,97 +238,15 @@ window.onload = function () {
             }
         }
     }
-
-
-    //     // var visitedCells = [];
-    //     // var numGridCells = rows * cols;
-
-    //     // maze(cols, rows);
-
-
-    //     // function genMazeArr(x, y) {
-    //     //     for (var i = 0; i < x; i++) {
-    //     //         gridArr[i] = [];
-    //     //         visitedCells[i] = [];
-    //     //         for (var j = 0; j < y; j++) {
-    //     //             gridArr[i][j] = {
-    //     //                 n: false,
-    //     //                 e: false,
-    //     //                 s: false,
-    //     //                 w: false
-    //     //             };
-    //     //             visitedCells[i][j] = false;
-    //     //         }
-    //     //     }
-
-    //     // }
-    //     // function maze(x, y) {
-
-    //     //     var currentCellx = Math.floor(Math.random() * x);
-    //     //     var currentCelly = Math.floor(Math.random() * y);
-    //     //     var currentCell = [currentCellx, currentCelly];
-    //     //     var path = [currentCell];
-
-    //     //     visitedCells[currentCellx][currentCelly] = true;
-    //     //     var visited = 1;
-    //     //     var runCount = 0;
-    //     //     var a = 0;
-    //     //     while (a<1){
-    //     //         a++;
-    //         // while (visited < numGridCells) {
-
-    //             var posPath = [];
-
-    //             // posPath = [[currentCellx - 1, currentCelly], //left
-    //             // [currentCellx, currentCelly + 1], //down
-    //             // [currentCellx + 1, currentCelly], //right
-    //             // [currentCellx, currentCelly - 1]]; //up
-
-    //             if(currentCellx - 1>=0){
-    //                 posPath.push(new coordinate(currentCellx - 1, currentCelly));//left
-    //             }
-    //             if(currentCelly + 1<=y){
-    //                 posPath.push(new coordinate(currentCellx, currentCelly + 1));//down
-
-    //             }
-    //             if(currentCellx + 1, currentCelly){
-    //                 posPath.push(new coordinate(currentCellx + 1, currentCelly));//right
-
-    //             }
-    //             if(currentCellx, currentCelly - 1){
-    //                 posPath.push(new coordinate(currentCellx, currentCelly - 1));//up
-
-    //             }
-    //             console.log(posPath[0])
-    //             console.log(posPath[1])
-    //             console.log(posPath[2])
-    //             console.log(posPath[3])
-
-
-    //             runCount++;
-    //             // console.log(runCount);
-    //             if (runCount > 20) {
-    //                 // console.log(posPath);
-    //                 console.log("Hit break statment")
-    //                 break;
-    //             }
-    //             var choosePosPath = [];
-
-    //             // for (var i = 0; i < 4; i++) {
-    //             //     var corX = posPath[i][0];
-    //             //     var cory = posPath[i][1];
-    //             // }
-
-
-    //         }
-    //     }
-
-    //     // console.log(gridArr);
-    //     // console.log(visitedCells);
-    //     // console.log(posPath);
-
-
-
-
-
+    function colorBorder(){
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,63*rows,63);
+        ctx.fillRect(0,0,63,63*cols);
+        ctx.fillRect(0,504,63*rows,63);
+        ctx.fillRect(504,0,63,63*cols);
+        // ctx.fillRect(0,0,63,63*cols);
+        // ctx.fillRect(0,126,rows*CS,cols*CS);
+        
+    }
+    colorBorder();
 }
