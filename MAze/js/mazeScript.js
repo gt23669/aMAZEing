@@ -3,6 +3,8 @@ window.onload = function () {
     var canvas = document.getElementById("mazecanvas");
     var ctx = canvas.getContext("2d");
 
+    
+
         // const rows = prompt('Enter number of rows.');
         //  if(rows == null || rows == ""){
         //     rows = 9;
@@ -16,25 +18,38 @@ window.onload = function () {
         //  }else{
         //     cols = (cols*2)+1
         //  }
-
-    const rows = 9;
-    const cols = 9;
-    const CS = 63; //cellsize
+    var mazeWidthANDHeight = prompt('Enter maze size');
+    document.getElementById('mazecanvas').width = mazeWidthANDHeight;
+    document.getElementById('mazecanvas').height = mazeWidthANDHeight;
+    var numRowANDCol = prompt('Enter number of rows and cols. Must be an odd number');
+        if(numRowANDCol == null || numRowANDCol == ""){
+            numRowANDCol = 7;
+        }else if(numRowANDCol%2==0){
+            numRowANDCol = parseInt(numRowANDCol, 10);
+            numRowANDCol = numRowANDCol+1;
+            numRowANDCol =  String(numRowANDCol);
+            
+        }
+    const rows = numRowANDCol;
+    const cols = numRowANDCol;
+    const CS = mazeWidthANDHeight/rows; //cellsize
     var gridArr = [];
     var cCell = {};
     var start = {};
-    var end = {};
+    var end;
     var endIndex = 0;
     var trackPath = {};
     var visitedCells = [];
     var trackedPath = [];
     var visited = 0;
+    var posEndingArr = [];
 
-    function Coordinate(x, y, direction, visited) {
+    function Coordinate(x, y, direction, visited, distance) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.visited = visited;
+        this.distance = distance;
     }
 
     function genMazeArr() {
@@ -49,30 +64,18 @@ window.onload = function () {
             }
 
         }
-        for (var i = 0; i < cols + 1; i++) {
-            for (var j = 0; j < rows + 1; j++) {
-                if (i == 9) {
-                    break;
-                }
+        for (var i = 0; i < cols; i++) {
+            for (var j = 0; j < rows; j++) {
+                // if (i == 9) {
+                //     break;
+                // }
                 if (gridArr[i][j] == 1) {
                     ctx.fillStyle = 'black';
                     ctx.fillRect(j * CS, i * CS, CS, CS);
-                    // ctx.fillRect(0,0,63,63*(j+1));
+                   
                 }
             }
         }
-        //         for(var i = 0;i<cols+1;i++){
-        //             for(var j = 0;j<rows+1;j++){
-        //                 if(i ==9){
-        //                     break;
-        //                 }
-        //                 if(gridArr[i][j]==1){
-        //                     ctx.fillStyle = 'black';
-        //                     ctx.fillRect(504,0,63,63*(i+1));
-        //                     ctx.fillRect(0,504,63*(j+1),63);
-        //                 }
-        //             }
-        // }
     }
     genMazeArr();
 
@@ -88,7 +91,7 @@ window.onload = function () {
             startx = startx - 1;
         }
         cCell = new Coordinate(startx, starty, "", true);
-        start = new Coordinate(startx, starty, "", true);
+        start = new Coordinate(startx, starty, "", true, 0);
         console.log("x: " + cCell.x);
         console.log("y: " + cCell.y);
         gridArr[cCell.x][cCell.y] = 2;
@@ -118,8 +121,12 @@ window.onload = function () {
                     endIndex = trackedPath.length - 1;
                 }
 
-                if(visitedCells.length>=endIndex+1){
-                    end = new Coordinate(visitedCells[endIndex][0], visitedCells[endIndex][1], "End", true);
+                //if visistedCell.length > end.distance
+                // update end
+
+                if(!end||visitedCells.length>end.distance){
+                    end = new Coordinate(visitedCells[endIndex][0], visitedCells[endIndex][1], "End", true, visitedCells.length);
+                    posEndingArr.push(end);
                     console.log("endX: "+end.x);
                     console.log("endY: "+end.y);
                 }
