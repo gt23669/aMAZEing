@@ -19,6 +19,9 @@ window.onload = function () {
     //     cols = (cols*2)+1
     //  }
     var mazeWidthANDHeight = prompt('Enter maze size');
+    if(mazeWidthANDHeight == null || mazeWidthANDHeight == ""){
+        mazeWidthANDHeight = 1000;
+    }
     document.getElementById('mazecanvas').width = mazeWidthANDHeight;
     document.getElementById('mazecanvas').height = mazeWidthANDHeight;
     var numRowANDCol = prompt('Enter number of rows and cols. Must be an odd number');
