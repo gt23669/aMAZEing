@@ -18,12 +18,12 @@ window.onload = function () {
     //  }else{
     //     cols = (cols*2)+1
     //  }
-    var mazeWidthANDHeight = prompt('Enter maze size');
-    if(mazeWidthANDHeight == null || mazeWidthANDHeight == ""){
-        mazeWidthANDHeight = 1000;
-    }
-    document.getElementById('mazecanvas').width = mazeWidthANDHeight;
-    document.getElementById('mazecanvas').height = mazeWidthANDHeight;
+    // var mazeWidthANDHeight = prompt('Enter maze size');
+    // if(mazeWidthANDHeight == null || mazeWidthANDHeight == ""){
+    //     mazeWidthANDHeight = 1000;
+    // }
+    // document.getElementById('mazecanvas').width = mazeWidthANDHeight;
+    // document.getElementById('mazecanvas').height = mazeWidthANDHeight;
     var numRowANDCol = prompt('Enter number of rows and cols. Must be an odd number');
     if (numRowANDCol == null || numRowANDCol == "") {
         numRowANDCol = 7;
@@ -35,7 +35,7 @@ window.onload = function () {
     }
     const rows = numRowANDCol;
     const cols = numRowANDCol;
-    const CS = mazeWidthANDHeight / rows; //cellsize
+    const CS = 700 / rows; //cellsize
     var gridArr = [];
     var cCell = {};
     var start = {};
