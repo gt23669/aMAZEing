@@ -61,7 +61,7 @@ window.onload = function () {
             gridArr[i] = [];
             for (var j = 0; j < rows; j++) {
                 gridArr[i][j] = 1;
-                if (j % 2 != 0 && i % 2 != 0) {
+                if (i % 2 != 0 && j % 2 != 0) {
                     gridArr[i][j] = 0;
                 }
 
@@ -73,7 +73,7 @@ window.onload = function () {
                 // if (i == 9) {
                 //     break;
                 // }
-                if (gridArr[i][j] == 1) {
+                if (gridArr[j][i] == 1) {
                     ctx.fillStyle = 'black';
                     ctx.fillRect(j * CS, i * CS, CS, CS);
 
@@ -208,9 +208,9 @@ window.onload = function () {
 
 
 
-            // for (var i = 0; i < cols; i++) {
-            //     console.log(gridArr[i]);
-            // }
+            for (var i = 0; i < cols; i++) {
+                console.log(gridArr[i]);
+            }
 
             // }
             if (trackedPath[(trackedPath.length) - 1][0] == start.x && trackedPath[(trackedPath.length) - 1][1] == start.y) {
@@ -225,10 +225,13 @@ window.onload = function () {
         ctx.fillStyle = 'red';
         ctx.fillRect(CS * (end.x), CS * (end.y), CS, CS);
         console.log("exit while loop");
-
+        
     }
+   
 
     path();
+
+    redraw();
 
     function possPath() {
         var posPath = [];
@@ -296,54 +299,78 @@ window.onload = function () {
         return posPath;
     }
     function colorBorder() {
+        // for(var i = 0;i<rows;i++){
+        //     for(var j = 0;j<cols;j++){
+        //         if(gridArr[i][j]==1){
+                    
+        //         }
+                
+        //     }
+        // }
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, 63 * rows, 63);
         ctx.fillRect(0, 0, 63, 63 * cols);
         ctx.fillRect(0, 504, 63 * rows, 63);
         ctx.fillRect(504, 0, 63, 63 * cols);
     }
-    function colorWalls() {
-        ctx.fillStyle = 'black';
-        var a = 126;
-        for (var i = 0; i < 6; i++) {
-            ctx.fillRect(a, 63, 63, 63);
-            a = a * 2;
-        }
-        // ctx.fillRect(126,63,63,63);
-        // ctx.fillRect(252,63,63,63);
-        // ctx.fillRect(378,63,63,63);
-    }
-    function colorNodes() {
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(63, 63, 63, 63);
-    }
+    // function colorWalls() {
+    //     ctx.fillStyle = 'black';
+    //     var a = 126;
+    //     for (var i = 0; i < 6; i++) {
+    //         ctx.fillRect(a, 63, 63, 63);
+    //         a = a * 2;
+    //     }
+    //     // ctx.fillRect(126,63,63,63);
+    //     // ctx.fillRect(252,63,63,63);
+    //     // ctx.fillRect(378,63,63,63);
+    // }
+    // function colorNodes() {
+    //     ctx.fillStyle = 'blue';
+    //     ctx.fillRect(63, 63, 63, 63);
+    // }
     // colorBorder();
     // colorWalls();
     // colorNodes();
-}
-function redraw(){
-
-    for (var i = 0; i < cols; i++) {
-        gridArr[i] = [];
-        for (var j = 0; j < rows; j++) {
-            gridArr[i][j] = 1;
-            if (j % 2 != 0 && i % 2 != 0) {
-                gridArr[i][j] = 0;
+    function redraw(){
+        gridArr[start.x][start.y] = 2;
+    
+        // for (var i = 0; i < cols; i++) {
+        //     gridArr[i] = [];
+        //     for (var j = 0; j < rows; j++) {
+        //         gridArr[i][j] = 1;
+        //         if (j % 2 != 0 && i % 2 != 0) {
+        //             gridArr[i][j] = 0;
+        //         }
+    
+        //     }
+    
+        // }
+        // for(var i = 0;i<numRowANDCol;i++){
+            console.log(gridArr);
+        // }
+        for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < cols; j++) {
+                // if (i == 9) {
+                //     break;
+                // }
+                if (gridArr[j][i] == 1) {
+                    ctx.fillStyle = 'blue';
+                    ctx.fillRect(j * CS, i * CS, CS, CS);
+    
+                }
             }
-
         }
+        // for (var i = 0; i < rows; i++) {
+        //     for (var j = 0; j < cols; j++) {
+        //         // if (i == 9) {
+        //         //     break;
+        //         // }
+        //         if (gridArr[j][i] == 1) {
+        //             ctx.fillStyle = 'black';
+        //             ctx.fillRect(j * CS, i * CS, CS, CS);
 
-    }
-    for (var i = 0; i < cols; i++) {
-        for (var j = 0; j < rows; j++) {
-            // if (i == 9) {
-            //     break;
-            // }
-            if (gridArr[i][j] == 1) {
-                ctx.fillStyle = 'black';
-                ctx.fillRect(j * CS, i * CS, CS, CS);
-
-            }
-        }
+        //         }
+        //     }
+        // }
     }
 }
