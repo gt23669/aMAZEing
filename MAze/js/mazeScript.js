@@ -321,3 +321,29 @@ window.onload = function () {
     // colorWalls();
     // colorNodes();
 }
+function redraw(){
+
+    for (var i = 0; i < cols; i++) {
+        gridArr[i] = [];
+        for (var j = 0; j < rows; j++) {
+            gridArr[i][j] = 1;
+            if (j % 2 != 0 && i % 2 != 0) {
+                gridArr[i][j] = 0;
+            }
+
+        }
+
+    }
+    for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < rows; j++) {
+            // if (i == 9) {
+            //     break;
+            // }
+            if (gridArr[i][j] == 1) {
+                ctx.fillStyle = 'black';
+                ctx.fillRect(j * CS, i * CS, CS, CS);
+
+            }
+        }
+    }
+}
