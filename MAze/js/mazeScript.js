@@ -87,8 +87,8 @@ window.onload = function () {
             redraw();
         }
     }
-    var numRowANDCol = prompt('Enter number of rows and cols. Must be an odd number');
-    if (numRowANDCol == null || numRowANDCol == "") {
+    var numRowANDCol = prompt('Enter number of rows and cols you want to use. Can not be less than 5 or even number.');
+    if (numRowANDCol == null || numRowANDCol == ""|| numRowANDCol<5) {
         numRowANDCol = 7;
     } else if (numRowANDCol % 2 == 0) {
         numRowANDCol = parseInt(numRowANDCol, 10);
