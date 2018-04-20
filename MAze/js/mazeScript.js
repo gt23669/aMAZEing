@@ -237,7 +237,7 @@ window.onload = function () {
 
     path();
 
-    // redraw();
+    redraw();
 
     function possPath() {
         var posPath = [];
@@ -338,7 +338,7 @@ window.onload = function () {
     // colorWalls();
     // colorNodes();
     function redraw(){
-        gridArr[start.x][start.y] = 2;
+        gridArr[start.y][start.x] = 2;
     
         // for (var i = 0; i < cols; i++) {
         //     gridArr[i] = [];
@@ -354,14 +354,14 @@ window.onload = function () {
         // for(var i = 0;i<numRowANDCol;i++){
             console.log(gridArr);
         // }
-        for (var i = 0; i < rows; i++) {
-            for (var j = 0; j < cols; j++) {
+        for (var j = 0; j < cols; j++) {
+            for (var i = 0; i < rows; i++) {
                 // if (i == 9) {
                 //     break;
                 // }
                 if (gridArr[j][i] == 1) {
                     ctx.fillStyle = 'blue';
-                    ctx.fillRect(j * CS, i * CS, CS, CS);
+                    ctx.fillRect(i * CS, j * CS, CS, CS);
     
                 }
             }
