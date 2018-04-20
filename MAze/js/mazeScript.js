@@ -5,7 +5,7 @@ window.onload = function () {
 
     document.onkeydown = function (e) {
         // console.log(e.keyCode);
-        if (e.keyCode == 37) {
+        if (e.keyCode == 65 ||e.keyCode == 37) {
             // console.log("left");
             lastPlayerCell.y = playerCell.y;
             lastPlayerCell.x = playerCell.x;
@@ -24,7 +24,7 @@ window.onload = function () {
             ctx.fillStyle = 'red';
             ctx.fillRect(CS * (end.x), CS * (end.y), CS, CS);
             redraw();
-        } else if (e.keyCode == 39) {
+        } else if (e.keyCode == 68||e.keyCode == 39) {
             // console.log("right");
             lastPlayerCell.y = playerCell.y;
             lastPlayerCell.x = playerCell.x;
@@ -44,7 +44,7 @@ window.onload = function () {
             ctx.fillRect(CS * (end.x), CS * (end.y), CS, CS);
 
             redraw();
-        } else if (e.keyCode == 38) {
+        } else if (e.keyCode == 87||e.keyCode == 38) {
             // console.log("up");
             lastPlayerCell.y = playerCell.y;
             lastPlayerCell.x = playerCell.x;
@@ -64,7 +64,7 @@ window.onload = function () {
             ctx.fillRect(CS * (end.x), CS * (end.y), CS, CS);
 
             redraw();
-        } else if (e.keyCode == 40) {
+        } else if (e.keyCode == 83||e.keyCode == 40) {
             // console.log("down");
             lastPlayerCell.y = playerCell.y;
             lastPlayerCell.x = playerCell.x;
