@@ -48,7 +48,7 @@ window.onload = function () {
     var posEndingArr = [];
     var longestpath = [];
 
-    function Coordinate(x, y, direction, visited, distance) {
+    function Coordinate(y, x, direction, visited, distance) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -73,9 +73,9 @@ window.onload = function () {
                 // if (i == 9) {
                 //     break;
                 // }
-                if (gridArr[j][i] == 1) {
+                if (gridArr[i][j] == 1) {
                     ctx.fillStyle = 'black';
-                    ctx.fillRect(j * CS, i * CS, CS, CS);
+                    ctx.fillRect(CS*i, CS*j, CS, CS);
 
                 }
             }
@@ -94,17 +94,19 @@ window.onload = function () {
         if (startx % 2 == 0) {
             startx = startx - 1;
         }
-        cCell = new Coordinate(startx, starty, "", true);
-        start = new Coordinate(startx, starty, "", true, 0);
+        cCell = new Coordinate(starty, startx, "", true);
+        start = new Coordinate(starty, startx, "", true, 0);
         console.log("x: " + cCell.x);
         console.log("y: " + cCell.y);
-        gridArr[cCell.x][cCell.y] = 2;
-        visitedCells.push([cCell.x, cCell.y]);
-        trackedPath.push([cCell.x, cCell.y]);
+        gridArr[cCell.y][cCell.x] = 2;
+        visitedCells.push([cCell.y, cCell.x]);
+        trackedPath.push([cCell.y, cCell.x]);
         visited++;
-        console.log("starting cell at: " + cCell.x + "," + cCell.y);
+        console.log("starting cell at: " + cCell.y + "," + cCell.x);
     }
     selStart();
+    ctx.fillStyle = 'green';
+    ctx.fillRect(CS * (start.x), CS * (start.y), CS, CS);
     for (var i = 0; i < cols; i++) {
         console.log(gridArr[i]);
     }
@@ -156,10 +158,10 @@ window.onload = function () {
             var index = Math.floor(Math.random() * posPath.length);
             console.log("index chosen is: " + index);
 
-            gridArr[posPath[index].x][posPath[index].y] = 0;
+            gridArr[posPath[index].y][posPath[index].x] = 0;
             var there = false;
             for (var i = 0; i < visitedCells.length; i++) {
-                if (posPath[index].x == visitedCells[i][0] && posPath[index].y == visitedCells[i][1]) {
+                if (posPath[index].y == visitedCells[i][0] && posPath[index].x == visitedCells[i][1]) {
                     there = false;
                     break;
                 } else {
@@ -167,8 +169,8 @@ window.onload = function () {
                 }
             }
             if (there) {
-                visitedCells.push([posPath[index].x, posPath[index].y]);
-                trackedPath.push([posPath[index].x, posPath[index].y]);
+                visitedCells.push([posPath[index].y, posPath[index].x]);
+                trackedPath.push([posPath[index].y, posPath[index].x]);
                 visited++;
 
 
@@ -181,27 +183,31 @@ window.onload = function () {
 
             switch (posPath[index].direction) {
                 case "up":
-                    gridArr[posPath[index].x + 1][posPath[index].y] = 0;
+                    gridArr[posPath[index].x][posPath[index].y-1] = 0;
                     ctx.fillStyle = 'white';
-                    ctx.fillRect(CS * (posPath[index].x + 1), CS * (posPath[index].y), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y-1), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].y-1), CS * (posPath[index].x), CS, CS);
                     console.log("up")
                     break;
                 case "down":
-                    gridArr[posPath[index].x - 1][posPath[index].y] = 0;
+                    gridArr[posPath[index].x][posPath[index].y+1] = 0;
                     ctx.fillStyle = 'white';
-                    ctx.fillRect(CS * (posPath[index].x - 1), CS * (posPath[index].y), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y+1), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].y+1), CS * (posPath[index].x), CS, CS);
                     console.log("down")
                     break;
                 case "left":
-                    gridArr[posPath[index].x][posPath[index].y + 1] = 0;
+                    gridArr[posPath[index].x-1][posPath[index].y] = 0;
                     ctx.fillStyle = 'white';
-                    ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y + 1), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].x-1), CS * (posPath[index].y), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].y), CS * (posPath[index].x-1), CS, CS);
                     console.log("left")
                     break;
                 case "right":
-                    gridArr[posPath[index].x][posPath[index].y - 1] = 0;
+                    gridArr[posPath[index].x+1][posPath[index].y] = 0;
                     ctx.fillStyle = 'white';
-                    ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y - 1), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].y), CS * (posPath[index].y), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].x+1), CS * (posPath[index].x+1), CS, CS);
                     console.log("right")
                     break;
             }
@@ -213,7 +219,7 @@ window.onload = function () {
             }
 
             // }
-            if (trackedPath[(trackedPath.length) - 1][0] == start.x && trackedPath[(trackedPath.length) - 1][1] == start.y) {
+            if (trackedPath[(trackedPath.length) - 1][0] == start.y && trackedPath[(trackedPath.length) - 1][1] == start.x) {
                 console.log("true");
                 break;
             } else {
@@ -231,15 +237,15 @@ window.onload = function () {
 
     path();
 
-    redraw();
+    // redraw();
 
     function possPath() {
         var posPath = [];
 
-        if (cCell.x - 2 >= 0 && gridArr[cCell.x - 2][cCell.y] == 0) { //up
+        if (cCell.y - 2 >= 0 && gridArr[cCell.y - 2][cCell.x] == 0) { //up
             var good = false;
             for (var i = 0; i < visitedCells.length; i++) {
-                if (cCell.x - 2 == visitedCells[i][0] && cCell.y == visitedCells[i][1]) {
+                if (cCell.y - 2 == visitedCells[i][0] && cCell.x == visitedCells[i][1]) {
                     good = false;
                     break;
                 } else {
@@ -247,13 +253,13 @@ window.onload = function () {
                 }
             }
             if (good) {
-                posPath.push(new Coordinate(cCell.x - 2, cCell.y, "up", true));//up
+                posPath.push(new Coordinate(cCell.y - 2, cCell.x, "up", true));//up
             }
         }
-        if (cCell.y + 2 < rows && gridArr[cCell.x][cCell.y + 2] == 0) { //right
+        if (cCell.x + 2 < numRowANDCol && gridArr[cCell.y][cCell.x + 2] == 0) { //right
             var good = false;
             for (var i = 0; i < visitedCells.length; i++) {
-                if (cCell.x == visitedCells[i][0] && cCell.y + 2 == visitedCells[i][1]) {
+                if (cCell.y == visitedCells[i][0] && cCell.x + 2 == visitedCells[i][1]) {
                     good = false;
                     break;
                 } else {
@@ -261,15 +267,15 @@ window.onload = function () {
                 }
             }
             if (good) {
-                posPath.push(new Coordinate(cCell.x, cCell.y + 2, "right", true));//right
+                posPath.push(new Coordinate(cCell.y, cCell.x + 2, "right", true));//right
 
 
             }
         }
-        if (cCell.x + 2 < cols && gridArr[cCell.x + 2][cCell.y] == 0) { //down
+        if (cCell.y + 2 < numRowANDCol && gridArr[cCell.y + 2][cCell.x] == 0) { //down
             var good = false;
             for (var i = 0; i < visitedCells.length; i++) {
-                if (cCell.x + 2 == visitedCells[i][0] && cCell.y == visitedCells[i][1]) {
+                if (cCell.y + 2 == visitedCells[i][0] && cCell.x == visitedCells[i][1]) {
                     good = false;
                     break;
                 } else {
@@ -277,13 +283,13 @@ window.onload = function () {
                 }
             }
             if (good) {
-                posPath.push(new Coordinate(cCell.x + 2, cCell.y, "down", true));//down
+                posPath.push(new Coordinate(cCell.y + 2, cCell.x, "down", true));//down
             }
         }
-        if (cCell.y - 2 >= 0 && gridArr[cCell.x][cCell.y - 2] == 0) { //left
+        if (cCell.x - 2 >= 0 && gridArr[cCell.y][cCell.x - 2] == 0) { //left
             var good = false;
             for (var i = 0; i < visitedCells.length; i++) {
-                if (cCell.x == visitedCells[i][0] && cCell.y - 2 == visitedCells[i][1]) {
+                if (cCell.y == visitedCells[i][0] && cCell.x - 2 == visitedCells[i][1]) {
                     good = false;
                     break;
                 } else {
@@ -291,7 +297,7 @@ window.onload = function () {
                 }
             }
             if (good) {
-                posPath.push(new Coordinate(cCell.x, cCell.y - 2, "left", true));//left
+                posPath.push(new Coordinate(cCell.y, cCell.x - 2, "left", true));//left
 
 
             }
