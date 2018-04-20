@@ -3,7 +3,8 @@ window.onload = function () {
     var canvas = document.getElementById("mazecanvas");
     var ctx = canvas.getContext("2d");
 
-    
+
+    document.getElementById("botButton").addEventListener("click", function () { bot(); });
     document.onkeydown = function (e) {
         // console.log(e.keyCode);
         if (e.keyCode == 65 || e.keyCode == 37) {
@@ -88,7 +89,7 @@ window.onload = function () {
         }
     }
     var numRowANDCol = prompt('Enter number of rows and cols you want to use. Can not be less than 5 or even number.');
-    if (numRowANDCol == null || numRowANDCol == ""|| numRowANDCol<5) {
+    if (numRowANDCol == null || numRowANDCol == "" || numRowANDCol < 5) {
         numRowANDCol = 7;
     } else if (numRowANDCol % 2 == 0) {
         numRowANDCol = parseInt(numRowANDCol, 10);
@@ -267,7 +268,7 @@ window.onload = function () {
 
     redraw();
 
-    
+
     function possPath() {
         var posPath = [];
 
@@ -347,22 +348,26 @@ window.onload = function () {
         }
     }
 
-    document.getElementById("botButton").addEventListener("click", function(){bot();});
-    
+
     function bot() {
 
         // document.getElementById("timer").innerHTML = "Timer: " ;
 
         for (var b = 0; longestpath.length > b; b++) {
-            ctx.fillStyle = 'cyan';
             if (b == 0) {
                 ctx.fillStyle = 'green';
                 ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
+                ctx.fillStyle = 'cyan'
+                ctx.fillRect(((longestpath[b][1] + longestpath[b + 1][1]) / 2) * CS, ((longestpath[b][0] + longestpath[b + 1][0]) / 2) * CS, CS, CS);
             } if (b == longestpath.length - 1) {
                 ctx.fillStyle = 'red';
                 ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
-            } else
-                ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
+                break;
+            } if (b>0 && b<longestpath.length-1){
+                ctx.fillStyle = 'cyan';
+            ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
+            ctx.fillRect(((longestpath[b][1] + longestpath[b + 1][1]) / 2) * CS, ((longestpath[b][0] + longestpath[b + 1][0]) / 2) * CS, CS, CS);
+        }
         }
     }
 
