@@ -183,31 +183,31 @@ window.onload = function () {
 
             switch (posPath[index].direction) {
                 case "up":
-                    gridArr[posPath[index].x][posPath[index].y-1] = 0;
+                    gridArr[posPath[index].y+1][posPath[index].x] = 0;
                     ctx.fillStyle = 'white';
-                    // ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y-1), CS, CS);
-                    ctx.fillRect(CS * (posPath[index].y-1), CS * (posPath[index].x), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y+1), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].y-1), CS * (posPath[index].x), CS, CS);
                     console.log("up")
                     break;
                 case "down":
-                    gridArr[posPath[index].x][posPath[index].y+1] = 0;
+                    gridArr[posPath[index].y-1][posPath[index].x] = 0;
                     ctx.fillStyle = 'white';
-                    // ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y+1), CS, CS);
-                    ctx.fillRect(CS * (posPath[index].y+1), CS * (posPath[index].x), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].x), CS * (posPath[index].y-1), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].y+1), CS * (posPath[index].x), CS, CS);
                     console.log("down")
                     break;
                 case "left":
-                    gridArr[posPath[index].x-1][posPath[index].y] = 0;
+                    gridArr[posPath[index].y][posPath[index].x+1] = 0;
                     ctx.fillStyle = 'white';
-                    // ctx.fillRect(CS * (posPath[index].x-1), CS * (posPath[index].y), CS, CS);
-                    ctx.fillRect(CS * (posPath[index].y), CS * (posPath[index].x-1), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].x+1), CS * (posPath[index].y), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].y), CS * (posPath[index].x-1), CS, CS);
                     console.log("left")
                     break;
                 case "right":
-                    gridArr[posPath[index].x+1][posPath[index].y] = 0;
+                    gridArr[posPath[index].y][posPath[index].x-1] = 0;
                     ctx.fillStyle = 'white';
-                    // ctx.fillRect(CS * (posPath[index].y), CS * (posPath[index].y), CS, CS);
-                    ctx.fillRect(CS * (posPath[index].x+1), CS * (posPath[index].x+1), CS, CS);
+                    ctx.fillRect(CS * (posPath[index].x-1), CS * (posPath[index].y), CS, CS);
+                    // ctx.fillRect(CS * (posPath[index].x+1), CS * (posPath[index].x+1), CS, CS);
                     console.log("right")
                     break;
             }
