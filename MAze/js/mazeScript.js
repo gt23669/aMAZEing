@@ -263,6 +263,7 @@ window.onload = function () {
     }
 
     path();
+
     redraw();
 
     function possPath() {
