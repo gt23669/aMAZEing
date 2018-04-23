@@ -5,7 +5,17 @@ window.onload = function () {
 
 
     document.getElementById("botButton").addEventListener("click", function () { bot(); });
+    // document.onkeydown.addEventListener("isclicked", function () { timer(); });
+
     document.onkeydown = function (e) {
+        if (startTimer == false) {
+            startTimer = true;
+            myVar = setInterval(function(){ timer() }, 1000);
+        //    startTimer()
+        }
+        
+
+
         // console.log(e.keyCode);
         if (e.keyCode == 65 || e.keyCode == 37) {
             // console.log("left");
@@ -87,8 +97,14 @@ window.onload = function () {
 
             redraw();
         }
+        if(playerCell.y == end.y && playerCell.x == end.x){
+            clearInterval(myVar);
+        }
     }
-    var numRowANDCol = prompt('Enter number of rows and cols you want to use. Can not be less than 5 or even number.');
+    
+   
+
+    var numRowANDCol = prompt('Enter number of rows and cols you want to use. Can not be less than 5 or an even number.');
     if (numRowANDCol == null || numRowANDCol == "" || numRowANDCol < 5) {
         numRowANDCol = 7;
     } else if (numRowANDCol % 2 == 0) {
@@ -113,6 +129,11 @@ window.onload = function () {
     var longestpath = [];
     var playerCell = {};
     var lastPlayerCell = {};
+    var startTimer = false;
+    var min = 0;
+    var sec = 0;
+    var startLoop;
+    var myVar;
 
     function Coordinate(y, x, direction, visited, distance) {
         this.x = x;
@@ -351,7 +372,6 @@ window.onload = function () {
 
     function bot() {
 
-        // document.getElementById("timer").innerHTML = "Timer: " ;
 
         for (var b = 0; longestpath.length > b; b++) {
             if (b == 0) {
@@ -363,12 +383,42 @@ window.onload = function () {
                 ctx.fillStyle = 'red';
                 ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
                 break;
-            } if (b>0 && b<longestpath.length-1){
+            } if (b > 0 && b < longestpath.length - 1) {
                 ctx.fillStyle = 'cyan';
-            ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
-            ctx.fillRect(((longestpath[b][1] + longestpath[b + 1][1]) / 2) * CS, ((longestpath[b][0] + longestpath[b + 1][0]) / 2) * CS, CS, CS);
+                ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
+                ctx.fillRect(((longestpath[b][1] + longestpath[b + 1][1]) / 2) * CS, ((longestpath[b][0] + longestpath[b + 1][0]) / 2) * CS, CS, CS);
+            }
         }
+    }
+    // while(!firstKeyPressed){
+    //     timer();
+
+    // }
+    // if(firstKeyPressed == true){
+        
+    // }
+    // var myVar = setInterval(function(){ timer() }, 1000);
+    // function startTimer(){
+    //     startLoop = setInterval
+    // }
+    function timer() {
+        // var s = 0;
+        // var m = 0;
+
+
+        sec++;
+        if (sec == 60) {
+            sec = 0;
+           min++
         }
+
+
+        document.getElementById("timer").innerHTML = "Timer: " +"0"+ min + ":" + sec;
+
+
+
+
+
     }
 
 }
