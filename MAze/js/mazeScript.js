@@ -10,7 +10,7 @@ window.onload = function () {
     document.onkeydown = function (e) {
         if (startTimer == false) {
             startTimer = true;
-            myVar = setInterval(function(){ timer() }, 1000);
+            myVar = setInterval(function(){ timer() }, 100);
         //    startTimer()
         }
         
@@ -131,7 +131,10 @@ window.onload = function () {
     var lastPlayerCell = {};
     var startTimer = false;
     var min = 0;
-    var sec = 0;
+    var min1 = 0;
+    var sec = 0.0;
+    var sec1 = 0;
+
     var startLoop;
     var myVar;
 
@@ -407,13 +410,21 @@ window.onload = function () {
 
 
         sec++;
-        if (sec == 60) {
+        if (sec == 10) {
             sec = 0;
-           min++
+            sec1++;
+            if(sec1==6){
+                sec1 = 0;
+                min++
+            }
+           if(min == 10){
+               min = 0;
+               x++;
+           }
         }
 
 
-        document.getElementById("timer").innerHTML = "Timer: " +"0"+ min + ":" + sec;
+        document.getElementById("timer").innerHTML = "Timer: " +min1+ min + ":" +sec1+ sec;
 
 
 
