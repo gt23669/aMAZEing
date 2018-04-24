@@ -1,6 +1,6 @@
 h1{
-    color: darkblue;
-    size: 150px;
+    color: gold;
+    font-size: 350px;
     font-family: Verdana;
     animation-fill-mode: forwards; 
 }
@@ -14,5 +14,10 @@ body{
     background-image: url('Betty.gif');
     background-color: orchid; 
 }
-
+p{
+    color: gold;
+    font-size: 350px;
+    font-family: Verdana;
+    animation-fill-mode: forwards; 
+}
 
