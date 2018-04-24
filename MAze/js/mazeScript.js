@@ -10,7 +10,7 @@ window.onload = function () {
     document.onkeydown = function (e) {
         if (startTimer == false) {
             startTimer = true;
-            myVar = setInterval(function(){ timer() }, 100);
+            myVar = setInterval(function(){ timer() }, 1000);
         //    startTimer()
         }
         
