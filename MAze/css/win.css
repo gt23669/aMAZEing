@@ -1,0 +1,18 @@
+h1{
+    color: darkblue;
+    size: 150px;
+    font-family: Verdana;
+    animation-fill-mode: forwards; 
+}
+#mazecanvas{
+    border: 1px solid purple;
+    width: 0px;
+    height: 0px;
+}
+
+body{
+    background-image: url('Betty.gif');
+    background-color: orchid; 
+}
+
+

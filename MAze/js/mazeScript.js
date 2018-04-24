@@ -99,6 +99,7 @@ window.onload = function () {
         }
         if(playerCell.y == end.y && playerCell.x == end.x){
             clearInterval(myVar);
+            document.querySelector("link[href='css/styles.css']").href = 'css/win.css';
         }
     }
     
@@ -380,35 +381,21 @@ window.onload = function () {
             if (b == 0) {
                 ctx.fillStyle = 'green';
                 ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
-                ctx.fillStyle = 'cyan'
+                ctx.fillStyle = 'cadetblue'
                 ctx.fillRect(((longestpath[b][1] + longestpath[b + 1][1]) / 2) * CS, ((longestpath[b][0] + longestpath[b + 1][0]) / 2) * CS, CS, CS);
             } if (b == longestpath.length - 1) {
                 ctx.fillStyle = 'red';
                 ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
                 break;
             } if (b > 0 && b < longestpath.length - 1) {
-                ctx.fillStyle = 'cyan';
+                ctx.fillStyle = 'cadetblue';
                 ctx.fillRect(longestpath[b][1] * CS, longestpath[b][0] * CS, CS, CS);
                 ctx.fillRect(((longestpath[b][1] + longestpath[b + 1][1]) / 2) * CS, ((longestpath[b][0] + longestpath[b + 1][0]) / 2) * CS, CS, CS);
             }
         }
     }
-    // while(!firstKeyPressed){
-    //     timer();
 
-    // }
-    // if(firstKeyPressed == true){
-        
-    // }
-    // var myVar = setInterval(function(){ timer() }, 1000);
-    // function startTimer(){
-    //     startLoop = setInterval
-    // }
     function timer() {
-        // var s = 0;
-        // var m = 0;
-
-
         sec++;
         if (sec == 10) {
             sec = 0;
@@ -423,12 +410,7 @@ window.onload = function () {
            }
         }
 
-
         document.getElementById("timer").innerHTML = "Timer: " +min1+ min + ":" +sec1+ sec;
-
-
-
-
 
     }
 
